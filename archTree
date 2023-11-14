@@ -1,0 +1,50 @@
+lib
+├── core
+│   ├── api
+│   ├── errors
+│   ├── network
+│   ├── resourses
+│   └── use_case
+├── app_widgets
+├── features
+│   ├── splash
+│   ├── auth
+│   ├── home
+│   │   ├── domain
+│   │   │   ├── entities
+│   │   │   ├── repositories
+│   │   │   └── use_cases
+│   │   ├── data
+│   │   │   ├── data_source
+│   │   │   ├── models
+│   │   │   └── repositories
+│   │   └── presentation
+│   │       ├── manager(state management(bloc or cubit))
+│   │       ├── pages
+│   │       └── widgets
+│   └── services
+│       ├── ride
+│       │   ├── auth
+│       │   ├── home
+│       │   │   ├── domain
+│       │   │   │   ├── entities
+│       │   │   │   ├── repositories
+│       │   │   │   └── use_cases
+│       │   │   ├── data
+│       │   │   │   ├── data_source
+│       │   │   │   ├── models
+│       │   │   │   └── repositories
+│       │   │   └── presentation
+│       │   │       ├── manager(state management(bloc or cubit))
+│       │   │       ├── pages
+│       │   │       └── widgets
+│       │   ├── reserve
+│       │   └── ....
+│       ├── food
+│       ├── groceries
+│       └── ...
+├── languages
+├── bloc_observer.dart
+├── injection.config.dart
+├── injection.dart
+└── main.dart
