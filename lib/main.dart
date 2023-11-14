@@ -16,7 +16,7 @@ void main() => runApp(const ExampleApp());
 @pragma('vm:entry-point')
 void startCallback() {
   // The setTaskHandler function must be called to handle the task in the background.
-   FlutterForegroundTask.setTaskHandler(CounterHandler());
+  FlutterForegroundTask.setTaskHandler(CounterHandler());
 }
 
 class ExampleApp extends StatelessWidget {
@@ -42,11 +42,12 @@ class ImplicitAnimations extends StatefulWidget {
   @override
   State<ImplicitAnimations> createState() => _ImplicitAnimationsState();
 }
+
 const defaultWidth = 100.0;
 const defaultHeight = 60.0;
 
 class _ImplicitAnimationsState extends State<ImplicitAnimations> {
-  double? _width= defaultWidth;
+  double? _width = defaultWidth;
   final double _height = defaultHeight;
   bool isZoomedIn = false;
   @override
@@ -58,26 +59,29 @@ class _ImplicitAnimationsState extends State<ImplicitAnimations> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AnimatedContainer(
-                // height: _height,
-                width: _width,
+              // height: _height,
+              width: _width,
               duration: const Duration(seconds: 1),
               curve: Curves.bounceInOut,
               child: Image.asset(
-                "assets/images/wow.png",fit: BoxFit.fill,
-              
+                "assets/images/wow.png",
+                fit: BoxFit.fill,
               ),
             ),
             const SizedBox(
               height: 100,
             ),
-            TextButton(onPressed: () {
-              isZoomedIn? _width = defaultWidth:MediaQuery.of(context).size.width ;
-              // isZoomedIn? _height = defaultWidth:300;
-              isZoomedIn = !isZoomedIn;
-              setState(() {
-                
-              });
-            }, child: const Text("zoom in"))
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    isZoomedIn = !isZoomedIn;
+                    _width = isZoomedIn
+                        ? MediaQuery.of(context).size.width
+                        : defaultWidth;
+                    // isZoomedIn? _height = defaultWidth:300;
+                  });
+                },
+                child: const Text("zoom in"))
           ],
         ),
       ),
