@@ -16,7 +16,7 @@ void main() => runApp(const ExampleApp());
 @pragma('vm:entry-point')
 void startCallback() {
   // The setTaskHandler function must be called to handle the task in the background.
-  FlutterForegroundTask.setTaskHandler(CounterHandler());
+ // FlutterForegroundTask.setTaskHandler(CounterHandler());
 }
 
 class ExampleApp extends StatelessWidget {
@@ -29,7 +29,7 @@ class ExampleApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/',
         routes: {
-          '/': (context) => const BackgroundCounterScreen(),
+          '/': (context) => const CustomClipperExample(),
         },
       ),
     );
@@ -47,9 +47,9 @@ const defaultWidth = 100.0;
 const defaultHeight = 60.0;
 
 class _ImplicitAnimationsState extends State<ImplicitAnimations> {
-  double? _width = defaultWidth;
-  final double _height = defaultHeight;
-  bool isZoomedIn = false;
+  double? _width = defaultWidth; 
+    String _textButton = "Zoom in";
+  bool isZoomIn = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,15 +74,57 @@ class _ImplicitAnimationsState extends State<ImplicitAnimations> {
             TextButton(
                 onPressed: () {
                   setState(() {
-                    isZoomedIn = !isZoomedIn;
-                    _width = isZoomedIn
+                    isZoomIn = !isZoomIn;
+                    _width = isZoomIn
                         ? MediaQuery.of(context).size.width
                         : defaultWidth;
-                    // isZoomedIn? _height = defaultWidth:300;
+                    _textButton = isZoomIn ? "Zoom out" : "Zoom in";
                   });
                 },
-                child: const Text("zoom in"))
+                child:  Text(_textButton))
           ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class CustomClipperExample extends StatefulWidget {
+  const CustomClipperExample({super.key});
+
+  @override
+  State<CustomClipperExample> createState() => _CustomClipperExampleState();
+}
+
+class CircularClipper extends CustomClipper<Path>{
+ const CircularClipper();
+  @override
+  Path getClip(Size size) {
+  Path path = Path();
+   final rec = Rect.fromCircle(center: Offset(size.width/2, size.height/2), radius: size.width/2);
+    path.addOval(rec);
+  return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper)=>false;
+
+}
+
+class _CustomClipperExampleState extends State<CustomClipperExample> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      body: Center(
+        child: ClipPath(
+          clipper: const CircularClipper(),
+          child: Container( 
+            color: Colors.red,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            
+          ),
         ),
       ),
     );
